@@ -15,6 +15,8 @@ Le istruzioni principali sono:
 2. Eseguire uno script denominato `level4` presente su `node1`.
 3. Analizzare i pacchetti di rete catturati tramite `tcpdump` per estrarre le informazioni necessarie alla composizione della flag.
 
+![net2](https://github.com/user-attachments/assets/9254ba64-23ab-4167-a0ba-783944d2b6a6)
+
 ---
 
 ## Soluzione 🎯
@@ -86,8 +88,21 @@ listening on eth1, link-type EN10MB (Ethernet), capture size 262144 bytes
 Begin emission:
 ...................................................................................................................Finished to send 1 packets.
 ..................................................................................................................*
-Received 230 packets, got 1 answers, remaining 0 packets.
+Received 230 packets, got 1 answers, remaining 0 packets
+.
 Sent 1 packets.
+
+Analyze the dump of the handshake...
+The flag is CCIT{level4_[ephemeralport]_[destinationport]_[clientstartsequencenumber]}
+
+
+
+root@node1:/usr/local/bin# 17:54:55.265746 IP 10.0.0.1.2799 > 10.0.0.2.ssh: Flags [S], seq 2254, win 8192, length 0
+17:54:55.265952 IP 10.0.0.2.ssh > 10.0.0.1.2799: Flags [S.], seq 517862217, ack 2255, win 64240, options [mss 1460], length 0
+17:54:55.266499 IP 10.0.0.1.2799 > 10.0.0.2.ssh: Flags [R], seq 2255, win 0, length 0
+3 packets captured
+5 packets received by filter
+0 packets dropped by kernel
 ```
 
 ---
