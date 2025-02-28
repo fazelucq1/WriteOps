@@ -1,25 +1,3 @@
-# CTF Writeups & HTB Machines 💀
-
-
-In questo repository archiviamo tutte le writeups di CTF (Capture The Flag) e macchine HTB (Hack The Box) che ho completato.
-
-
-## Contenuti 📚
-- **CTF Writeups**: Soluzioni dettagliate delle sfide CTF
-- **HTB Machines**: Guide complete per le macchine Hack The Box
-
-
-## Contributi 🤝
-Per contribuire con un writeup, contattami via email: `luca.crippa05@gmail.com`
-
-
-## Licenza ⚖️
-Repository condivisa per scopi educativi. Rispetta sempre le policy delle piattaforme quando condividi materiale.
-
-
----
-
-
 # Writeup: Sn4ck sh3nan1gans 🍪
 
 
