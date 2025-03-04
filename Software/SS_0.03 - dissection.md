@@ -35,7 +35,7 @@ Se concateniamo il contenuto di queste sezioni, otteniamo:
 
 ## Flag 🏁
 ```
-CCIT{I_c_d3ad_sec_ti0n5}
+CCIT{I_c_d3ad_secti0n5}
 ```
 
 ## Lezioni Apprese 📚
