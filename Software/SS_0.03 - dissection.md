@@ -32,12 +32,6 @@ Questo comando elenca tutte le sezioni, incluse quelle personalizzate che posson
 ```
 
 Se concateniamo il contenuto di queste sezioni, otteniamo:
-```
-CCIT{I_c_d3ad_sec_ti0n5}
-```
-
-### 2. Flag
-La flag è quindi:
 
 ## Flag 🏁
 ```
