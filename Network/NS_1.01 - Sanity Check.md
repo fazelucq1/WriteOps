@@ -56,9 +56,6 @@ Interface #0 info:
 
 ```
 
-### 2. Flag
-La flag, quindi, è:
-
 ## Flag 🏁
 ```
 CCIT{a8ec63de-0c9a-473e-9b34-11026a9e6b19}
