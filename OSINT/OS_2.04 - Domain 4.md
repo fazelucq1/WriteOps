@@ -22,6 +22,7 @@ La challenge richiede di consultare la **Wayback Machine** di Archive.org per il
 
 ### 3. Risposta
 Secondo i dati, il primo snapshot del 14/06/2006 è avvenuto alle:
+
 ![image](https://github.com/user-attachments/assets/536db341-4990-449b-b0fc-4ca7352afe6e)
 
 
