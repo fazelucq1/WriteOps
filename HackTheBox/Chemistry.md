@@ -94,14 +94,13 @@ cat /home/app/instance/database.db
 ```
 Nel contenuto, scorgiamo varie credenziali con hash. Esempio:
 ```
-Mrosa63ed86ee9f624c7b14f1d4f43dc251a5
+Mrosa:63ed86[REDACTED]c251a5
 ...
 ```
-![image](https://github.com/user-attachments/assets/e780446d-a465-4991-acce-85269029190a)
 
 Confrontiamo l’hash su siti come [CrackStation](https://crackstation.net/) o usiamo `hashcat`. Otteniamo:
 ```
-Mrosa: unicorniosrosados
+Mrosa: un[REDACTED]os
 ```
 
 ## 5. Accesso come Rosa
@@ -114,7 +113,7 @@ Siamo ora loggati come `rosa`.
 **Flag User**:  
 ```bash
 cat /home/rosa/user.txt
-08269138f937793e4f33369b7242a827
+082[REDACTED]2a827
 ```
 
 ## 6. Privilege Escalation
@@ -159,12 +158,8 @@ Lo script incrementa i `../` finché non trova il file. Alla terza iterazione, o
 
 **Flag Root**:
 ```
-8541882c7aedf25f17f8a1c8a24757ab
+85[REDACTED]57ab
 ```
-
-## Flag 🏁
-- **User**: `08269138f937793e4f33369b7242a827`
-- **Root**: `8541882c7aedf25f17f8a1c8a24757ab`
 
 ## Lezioni Apprese 📚
 1. **Vulnerabilità in Formati di File**: Il caricamento di file `.cif` malformati ha consentito l’esecuzione di codice arbitrario.  
