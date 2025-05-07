@@ -2,7 +2,7 @@
 
 ## 📝 Introduzione
 
-In questa writeup vengono descritte *esclusivamente* le operazioni eseguite per ottenere le flag `user.txt` e `root.txt` sulla macchina target (10.10.11.64), seguendo quanto riportato nei log originali.
+In questa writeup vengono descritte le operazioni eseguite per ottenere le flag `user.txt` e `root.txt` sulla macchina target (10.10.11.64)
 
 ---
 
