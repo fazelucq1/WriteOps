@@ -1,13 +1,13 @@
 Ecco un riepilogo in Markdown di tutti i passaggi che abbiamo eseguito:
 
-````markdown
+
 # Riepilogo Lab MSSQL CTF
 
 ## 1. Scansione iniziale con Nmap
 - Comando:
   ```bash
   nmap -p1433 --script ms-sql-empty-password target.ine.local
-````
+
 
 * Risultato:
 
