@@ -79,7 +79,7 @@ if __name__ == '__main__':
 4. **Esempio di filtro malicioso**:
 
    ```
-   tcp.payload contains "flag_placeholder") || ! (tcp.port eq 1
+   tcp.payload contains "flag_placeholder") || ! (tcp
    ```
 
    Dopo il taglio a 50 caratteri, il filtro finale diventa:
@@ -97,7 +97,7 @@ if __name__ == '__main__':
 1. Invia il filtro:
 
    ```
-   tcp.payload contains "flag_placeholder") || ! (tcp.port eq 1
+   tcp.payload contains "flag_placeholder") || ! (tcp
    ```
 
 2. Il filtro viene modificato e usato da tshark.
