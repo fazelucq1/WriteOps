@@ -48,18 +48,6 @@ Grazie a questa challenge abbiamo imparato quanto sia importante testare anche l
 ```
 ITASEC{REDACTED}
 ```
-
----
-
-## 🙌 Ringraziamenti
-
-Un grazie speciale agli autori:
-
-- **Domingo Dirutigliano** `@DomySh`
-- **Vincenzo Turturro** `@Sush1`
-
-Per aver creato una challenge intelligente e divertente! 👏
-
 --- 
 
 > ✅ *Writeup creata con ❤️ - Keep on hacking!* 🧑‍💻🔍
