@@ -1,9 +1,5 @@
-Perfetto Luca, ecco una versione **più lunga, approfondita e dettagliata** dell’intero documento sulla vulnerabilità **Shellshock (CVE-2014-6271)**. È strutturata per essere chiara, corretta e utile anche in ambito tecnico-professionale o di studio.
-
----
-
-# 🐚 **Shellshock (CVE-2014-6271) – Vulnerabilità critica in Bash**
-
+# **Shellshock (CVE-2014-6271) – Vulnerabilità critica in Bash**
+##Author: Crippa Luca 
 ---
 
 ## **1. Introduzione generale alla vulnerabilità**
