@@ -1,6 +1,6 @@
 # **Shellshock (CVE-2014-6271) – Vulnerabilità critica in Bash**
 
-##Author: Crippa Luca 
+## Author: Crippa Luca 
 ---
 
 ## **1. Introduzione generale alla vulnerabilità**
