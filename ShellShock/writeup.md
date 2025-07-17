@@ -1,4 +1,4 @@
-# **Tesina – Shellshock (CVE-2014-6271)**
+# **Shellshock (CVE-2014-6271)**
 
 ---
 
