@@ -1,0 +1,16 @@
+<pre lang="JavaScript" line="1">
+    <html>
+    <head>
+    <title>ClickJacking PoC</title>
+    </head>
+    ClickJacking PoC
+    <h2>Your Web Application Can be Mounted within an iFrame which makes it vulnerable to ClickJacking!</h2>
+    <iframe src="<INSERISCI L'URL QUA>" height="450" width="1000" document.designMode="on";><script>document.designMode="on";</script></iframe>
+    <script>document.designMode="on";</script>
+    </body>
+    </html>
+    </pre>
+
+
+
+    <!-- Per testare se un sito è vulnerabile a clickjacking inserire l'url nell' SRC dell'IFRAME
