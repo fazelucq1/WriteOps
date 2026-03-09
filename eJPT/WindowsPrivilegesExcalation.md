@@ -1,6 +1,3 @@
-Ecco un riepilogo in Markdown di tutti i passaggi che abbiamo eseguito:
-
-
 # Riepilogo Lab MSSQL CTF
 
 ## 1. Scansione iniziale con Nmap
